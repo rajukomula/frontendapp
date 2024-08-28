@@ -1,6 +1,6 @@
 // pages/SignUpPage.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const SignUpPage = () => {
@@ -8,6 +8,7 @@ const SignUpPage = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // State to manage loading status
   const navigation = useNavigation();
   const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/v1'; // Define your API URL here
 
@@ -17,6 +18,8 @@ const SignUpPage = () => {
       return;
     }
 
+    setLoading(true); // Show loading spinner
+
     try {
       const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
@@ -25,19 +28,17 @@ const SignUpPage = () => {
         },
         body: JSON.stringify({ firstName, lastName, email, password }),
       });
-      
-      if (response.ok) {
-        console.log("response is okkkkkkk")
-          // Navigate to OTP verification page
-        navigation.navigate('OTPVerification', {email});
-        console.log("navigated");
 
-        
+      if (response.ok) {
+        // Navigate to OTP verification page
+        navigation.navigate('OTPVerification', { email });
       } else {
-        Alert.alert('Error','Registration failed.');
+        Alert.alert('Error', 'Registration failed.');
       }
     } catch (error) {
       Alert.alert('Error', 'Something went wrong. Please try again.');
+    } finally {
+      setLoading(false); // Hide loading spinner
     }
   };
 
@@ -70,8 +71,12 @@ const SignUpPage = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-        <Text style={styles.buttonText}>Submit</Text>
+      <TouchableOpacity style={styles.button} onPress={handleSignUp} disabled={loading}>
+        {loading ? (
+          <ActivityIndicator size="small" color="#fff" /> // Show loading spinner
+        ) : (
+          <Text style={styles.buttonText}>Submit</Text>
+        )}
       </TouchableOpacity>
     </View>
   );
@@ -106,6 +111,8 @@ const styles = StyleSheet.create({
     margin: 10,
     width: '80%',
     alignItems: 'center',
+    flexDirection: 'row', // Allow spinner and text to be side by side
+    justifyContent: 'center',
   },
   buttonText: {
     color: 'white',

@@ -15,11 +15,39 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Landing">
-        <Stack.Screen name="Landing" component={LandingPage} options={{ title: 'Landing Page' }} />
-        <Stack.Screen name="SignUp" component={SignUpPage} options={{ title: 'Sign Up' }} />
-        <Stack.Screen name="OTPVerification" component={OTPVerificationPage} options={{ title: 'Verify OTP' }} />
-        <Stack.Screen name="Home" component={HomePage} options={{ title: 'Home' }} />
+        <Stack.Screen 
+          name="Landing" 
+          component={LandingPage} 
+          options={{ headerShown: false }} // Hide header
+        />
+        <Stack.Screen 
+          name="SignUp" 
+          component={SignUpPage} 
+          options={{ 
+            headerShown: true, // Show header
+            title: 'Sign Up', // Set title for the header
+            headerBackTitleVisible: false, // Hide default back button title
+          }} 
+        />
+        <Stack.Screen 
+          name="OTPVerification" 
+          component={OTPVerificationPage} 
+          options={{ 
+            headerShown: true, // Show header
+            title: 'Verify OTP', // Set title for the header
+            headerBackTitleVisible: false, // Hide default back button title
+          }} 
+        />
+        <Stack.Screen 
+          name="Home" 
+          component={HomePage} 
+          options={{ 
+            headerShown: false, // Hide header
+            gestureEnabled: false // Disable swipe gestures for back navigation
+          }} 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+ 
