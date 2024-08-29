@@ -9,7 +9,7 @@ const OTPVerificationPage = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { email } = route.params; // Get email from route params
-  const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/v1'; // Define your API URL here
+  const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/auth'; // Define your API URL here
 
   useEffect(() => {
     // Timer function to count down every second

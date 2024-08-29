@@ -10,7 +10,7 @@ const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // State to manage loading status
   const navigation = useNavigation();
-  const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/v1'; // Define your API URL here
+  const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/auth'; // Define your API URL here
 
   const handleSignUp = async () => {
     if (!firstName || !lastName || !email || !password) {

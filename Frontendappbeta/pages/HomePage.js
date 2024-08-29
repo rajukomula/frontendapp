@@ -13,8 +13,9 @@ const HomePage = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerText}>AppName</Text>
+        <Text style={styles.headerText}>JobFinder</Text>
         <TextInput
           style={styles.searchInput}
           placeholder="Search jobs..."
@@ -22,7 +23,8 @@ const HomePage = () => {
         />
       </View>
 
-      <View style={styles.searchFields}>
+      {/* Filters Section */}
+      <View style={styles.filtersSection}>
         <TextInput
           style={styles.fieldInput}
           placeholder="Location"
@@ -46,10 +48,11 @@ const HomePage = () => {
         </TouchableOpacity>
       </View>
 
+      {/* Jobs List */}
       <View style={styles.jobsContainer}>
         <Text style={styles.sectionTitle}>Available Part-Time Jobs</Text>
         <View style={styles.jobList}>
-          {/* Repeat this View for each available job */}
+          {/* Job Item */}
           <View style={styles.jobItem}>
             <Text style={styles.jobTitle}>Part-Time Sales Associate at XYZ Store</Text>
             <Text style={styles.jobDetails}>Location: New York, NY | Skills: Customer Service, Sales | Experience: 1+ years</Text>
@@ -58,6 +61,7 @@ const HomePage = () => {
             <Text style={styles.jobTitle}>Freelance Graphic Designer</Text>
             <Text style={styles.jobDetails}>Location: Remote | Skills: Adobe Photoshop, Illustrator | Experience: 2+ years</Text>
           </View>
+          {/* Add more job items here */}
         </View>
       </View>
     </ScrollView>
@@ -68,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#E2DFD2',
+    backgroundColor: '#F3F2EF',
   },
   header: {
     flexDirection: 'row',
@@ -76,62 +80,68 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
-    fontSize: 15,
+    fontSize: 28,
     fontWeight: 'bold',
+    color: '#0073B1',
     flex: 1,
   },
   searchInput: {
     height: 40,
-    borderColor: '#000',
+    borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
+    borderRadius: 25,
+    paddingHorizontal: 15,
     backgroundColor: '#fff',
     marginLeft: 10,
     flex: 2,
   },
-  searchFields: {
+  filtersSection: {
     marginBottom: 20,
   },
   fieldInput: {
     height: 50,
-    borderColor: '#000',
+    borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
+    borderRadius: 25,
+    paddingHorizontal: 15,
     backgroundColor: '#fff',
     marginBottom: 10,
   },
   searchButton: {
-    backgroundColor: 'blue',
-    padding: 15,
-    borderRadius: 5,
+    backgroundColor: '#0073B1',
+    paddingVertical: 15,
+    borderRadius: 25,
     alignItems: 'center',
+    marginTop: 10,
   },
   searchButtonText: {
     color: 'white',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   jobsContainer: {
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    color: '#333',
     marginBottom: 10,
   },
   jobList: {
     borderTopWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#ccc',
   },
   jobItem: {
-    padding: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
     borderBottomWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#ccc',
   },
   jobTitle: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#0073B1',
   },
   jobDetails: {
     fontSize: 14,
