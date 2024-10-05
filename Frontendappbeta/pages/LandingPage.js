@@ -12,7 +12,7 @@ const LandingPage = () => {
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUp')}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => alert('Login functionality not implemented')}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LogIn')}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
     </View>

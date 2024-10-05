@@ -1,42 +1,39 @@
-// pages/SignUpPage.js
+// pages/LoginPage.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const SignUpPage = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // State to manage loading status
   const navigation = useNavigation();
   const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/auth'; // Define your API URL here
 
-  const handleSignUp = async () => {
-    if (!firstName || !lastName || !email || !password) {
-      Alert.alert('Validation Error', 'Please fill in all fields.');
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Validation Error', 'Please enter both email and password.');
       return;
     }
 
     setLoading(true); // Show loading spinner
 
     try {
-      const response = await fetch(`${API_URL}/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ firstName, lastName, email, password }),
-      });
+        const response = await fetch(`${API_URL}/sign-in?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
       if (response.ok) {
-        // Navigate to OTP verification page
-        navigation.navigate('OTPVerification', { email });
+        // Navigate to Home page
+        navigation.navigate('Home');
       } else {
-        Alert.alert('Error', 'Registration failed.');
+        Alert.alert('Error', 'Login failed. Please check your credentials.');
       }
     } catch (error) {
-      Alert.alert('Error', 'here 1 Something went wrong. Please try again.');
+      Alert.alert('Error', 'Something went wrong. Please try again.');
     } finally {
       setLoading(false); // Hide loading spinner
     }
@@ -44,19 +41,7 @@ const SignUpPage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign Up</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="First Name"
-        value={firstName}
-        onChangeText={setFirstName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Last Name"
-        value={lastName}
-        onChangeText={setLastName}
-      />
+      <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -71,11 +56,11 @@ const SignUpPage = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button} onPress={handleSignUp} disabled={loading}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
         {loading ? (
           <ActivityIndicator size="small" color="#fff" /> // Show loading spinner
         ) : (
-          <Text style={styles.buttonText}>Submit</Text>
+          <Text style={styles.buttonText}>Login</Text>
         )}
       </TouchableOpacity>
     </View>
@@ -120,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpPage;
+export default LoginPage;

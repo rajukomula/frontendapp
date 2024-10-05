@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+
 const OTPVerificationPage = () => {
   const [userOtp, setUserOtp] = useState('');
-  const [loading, setLoading] = useState(false); // State to manage loading status
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes countdown in seconds
-  const navigation = useNavigation();
+  const [loading, setLoading] = useState(false); 
+  const [timeLeft, setTimeLeft] = useState(300); 
   const route = useRoute();
+  const navigation = useNavigation();
+
   const { email } = route.params; // Get email from route params
-  const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/auth'; // Define your API URL here
+  const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/auth';
 
   useEffect(() => {
     // Timer function to count down every second
@@ -50,7 +52,8 @@ const OTPVerificationPage = () => {
         Alert.alert('Error', 'Invalid OTP. Please try again.');
       }
     } catch (error) {
-      Alert.alert('Error', 'Something went wrong. Please try again.');
+      Alert.alert('Error', 'here 2 Something went wrong. Please try again.');
+      console.log(error);
     } finally {
       setLoading(false); // Hide loading spinner
     }

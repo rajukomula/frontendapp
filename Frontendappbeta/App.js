@@ -8,6 +8,7 @@ import LandingPage from './pages/LandingPage';
 import SignUpPage from './pages/SignUpPage';
 import OTPVerificationPage from './pages/OTPVerificationPage';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
 
 const Stack = createStackNavigator();
 
@@ -45,7 +46,16 @@ export default function App() {
             headerShown: false, // Hide header
             gestureEnabled: false // Disable swipe gestures for back navigation
           }} 
-        />
+        />        
+        <Stack.Screen 
+        name="LogIn" 
+        component={LoginPage} 
+        options={{ 
+          headerShown: true, // Show header
+          title: 'Log In', // Set title for the header
+          headerBackTitleVisible: false, // Hide default back button title
+      }} 
+      />
       </Stack.Navigator>
     </NavigationContainer>
   );
