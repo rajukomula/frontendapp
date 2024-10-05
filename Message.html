@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raj</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #ffebee; /* Light peach background color */
+      position: relative; /* Position relative to add pseudo-element */
+    }
+
+    .container {
+      width: 600px;
+      height: 500px;
+      border: 2px solid #ffccbc; /* Light peach border */
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      background-color: rgba(255, 224, 178, 0.8); /* Light peach container with transparency */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+      z-index: 1; /* Keep the container above the background */
+    }
+
+    h1 {
+      margin-bottom: 60px;
+      text-align: center; /* Center the header text */
+      color: #d35d56; /* Darker peach color for text */
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Space between the buttons */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      position: relative;
+      background-color: #ff6f61; /* Soft coral color for buttons */
+      color: white; /* White text color for buttons */
+      border: none; /* No border for buttons */
+      border-radius: 5px; /* Rounded corners for buttons */
+      transition: background-color 0.3s; /* Smooth transition for hover effect */
+    }
+
+    button:hover {
+      background-color: #e55c52; /* Darker coral color on hover */
+    }
+
+    #noBtn {
+      position: absolute; /* Allows the No button to move around */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #message {
+  margin-top: 20px;
+  font-size: 34px; /* Increased font size */
+  font-weight: bold; /* Bold message */
+  color: #d35d56; /* Darker peach color for message */
+  display: none; /* Hide message initially */
+  text-align: center; /* Center the message text */
+}
+
+    /* Background flowers using a pseudo-element */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('https://img.freepik.com/free-vector/paper-style-valentine-s-day-background_23-2149217662.jpg?w=1060&t=st=1728104581~exp=1728105181~hmac=ed2a97cec674cace27f9e0e4fe0e49e25f687db9ce9c800f31abb76afc990e8f'); /* Floral background image */
+      background-size: cover; /* Cover the whole body */
+      background-position: center; /* Center the image */
+      opacity: 0.5; /* Slightly transparent for a soft look */
+      z-index: 0; /* Keep it behind the container */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="title">Do you like me ?</h1> <!-- Initial Title -->
+    <div class="button-container">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+    <p id="message"><strong>Yaaayyy! Let's go to Temple tomorrow!!!!</strong><br>Lets get Married officially <3</p>
+</div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const message = document.getElementById('message');
+    const title = document.getElementById('title');
+    const container = document.querySelector('.container');
+
+    // Display the proposal question when Yes button is clicked first
+    yesBtn.addEventListener('click', () => {
+      if (title.textContent === "Do you like me ?") {
+        title.textContent = "Will you marry me?"; // Change the title to proposal
+      } else {
+        message.style.display = 'block'; // Show the message
+        title.style.display = 'none'; // Hide the title
+        yesBtn.style.display = 'none'; // Hide the Yes button
+        noBtn.style.display = 'none'; // Hide the No button
+      }
+    });
+
+    // Move No button to a random position inside the container when hovered
+    noBtn.addEventListener('mouseover', () => {
+      const containerWidth = container.offsetWidth;
+      const containerHeight = container.offsetHeight;
+      const buttonWidth = noBtn.offsetWidth;
+      const buttonHeight = noBtn.offsetHeight;
+
+      // Calculate random positions within the container
+      const randomX = Math.random() * (containerWidth - buttonWidth);
+      const randomY = Math.random() * (containerHeight - buttonHeight);
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    });
+  </script>
+
+</body>
+</html>
