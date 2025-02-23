@@ -1,108 +1,152 @@
-// pages/LoginPage.js
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { View, Image, TouchableOpacity, ScrollView, StyleSheet, Alert } from "react-native";
+import { Button, Text } from "react-native-paper";
+import { MaterialIcons } from "@expo/vector-icons";  // Import delete icon
+import * as ImagePicker from "expo-image-picker";
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); // State to manage loading status
-  const navigation = useNavigation();
-  const API_URL = 'https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/auth'; // Define your API URL here
+export default function AvatarSelection({ navigation }) {
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleLogin = async () => {
-    if (!email || !password) {
-      Alert.alert('Validation Error', 'Please enter both email and password.');
-      return;
-    }
+  // ✅ Updated Reliable Avatar URLs
+  const cartoonAvatars = [
+    "https://robohash.org/cartoon43.png?set=set4",
+    "https://robohash.org/cartoon223.png?set=set4",
+    "https://robohash.org/cartoon42.png?set=set4",
+    "https://robohash.org/cartoon51.png?set=set4",
+    "https://robohash.org/cartoon6.png?set=set4",
+    "https://robohash.org/cartoon9.png?set=set4"
+  ];
 
-    setLoading(true); // Show loading spinner
-
-    try {
-        const response = await fetch(`${API_URL}/sign-in?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-
-      if (response.ok) {
-        // Navigate to Home page
-        navigation.navigate('Home');
-      } else {
-        Alert.alert('Error', 'Login failed. Please check your credentials.');
+  useEffect(() => {
+    (async () => {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permission Required", "Please grant media library access.");
       }
-    } catch (error) {
-      Alert.alert('Error', 'Something went wrong. Please try again.');
-    } finally {
-      setLoading(false); // Hide loading spinner
+    })();
+  }, []);
+
+  // Pick Image from Gallery
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled && result.assets.length > 0) {
+      setSelectedImage(result.assets[0].uri);
     }
   };
 
+  // Remove Selected Image
+  const removeImage = () => {
+    setSelectedImage(null);
+  };
+
+  // Move to Next Page (Pass selected Image)
+  const goToNext = () => {
+    navigation.navigate("NextScreen", { userImage: selectedImage });
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
-        {loading ? (
-          <ActivityIndicator size="small" color="#fff" /> // Show loading spinner
-        ) : (
-          <Text style={styles.buttonText}>Login</Text>
-        )}
-      </TouchableOpacity>
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Choose an Avatar</Text>
+
+      {/* Sample Cartoon Avatars */}
+      <View style={styles.avatarContainer}>
+        {cartoonAvatars.map((avatar, index) => (
+          <TouchableOpacity key={index} onPress={() => setSelectedImage(avatar)}>
+            <Image source={{ uri: avatar }} style={[styles.avatar, selectedImage === avatar && styles.selectedAvatar]} />
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Gallery Upload */}
+      <Button mode="contained" onPress={pickImage} style={styles.button}>
+        Pick from Gallery
+      </Button>
+
+      {/* Preview Selected Image with Delete Button */}
+      {selectedImage && (
+        <View style={styles.previewContainer}>
+          <Image source={{ uri: selectedImage }} style={styles.preview} />
+          <TouchableOpacity style={styles.deleteButton} onPress={removeImage}>
+            <MaterialIcons name="close" size={20} color="white" />
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {/* Navigation Buttons */}
+      <View style={styles.buttonContainer}>
+        <Button mode="outlined" onPress={() => navigation.navigate("NextScreen", { userImage: null })}>
+          Skip
+        </Button>
+        <Button mode="contained" onPress={goToNext} disabled={!selectedImage}>
+          Next
+        </Button>
+      </View>
+    </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#E2DFD2',
     padding: 20,
+    alignItems: "center",
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
+  avatarContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
     marginBottom: 20,
   },
-  input: {
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#000',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 20,
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    margin: 10,
+    borderWidth: 2,
+    borderColor: "transparent",
+  },
+  selectedAvatar: {
+    borderColor: "#007bff",
   },
   button: {
-    backgroundColor: 'blue',
-    padding: 15,
-    borderRadius: 5,
-    margin: 10,
-    width: '80%',
-    alignItems: 'center',
-    flexDirection: 'row', // Allow spinner and text to be side by side
-    justifyContent: 'center',
+    width: "80%",
+    marginVertical: 10,
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
+  previewContainer: {
+    position: "relative",
+    marginTop: 10,
+  },
+  preview: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: "#007bff",
+  },
+  deleteButton: {
+    position: "absolute",
+    top: 5,
+    right: 5,
+    backgroundColor: "red",
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "80%",
+    marginTop: 20,
   },
 });
-
-export default LoginPage;
