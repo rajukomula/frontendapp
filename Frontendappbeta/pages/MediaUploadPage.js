@@ -8,7 +8,7 @@ import { Video } from "expo-av";
 
 const UPLOAD_URL = "https://musical-train-7vrjpgwx64xj3rpv5-8080.app.github.dev/api/files/upload";
 
-export default function HomePage() {
+export default function MediaUploadPage() {
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
   const [pdf, setPdf] = useState(null);

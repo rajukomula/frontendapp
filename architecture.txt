@@ -1,0 +1,43 @@
+userData = {
+    avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
+    name: 'John Doe',
+    title: 'Software Engineer',
+    location: 'San Francisco, CA',
+    rating: 4.8,
+    reviewCount: 120,
+    successRate: '95%',
+    responseTime: '2 hours',
+    completedJobs: 50,
+    hourlyRate: 50,
+    dailyRate: 400,
+    skills: ['JavaScript', 'React Native', 'Node.js', 'MongoDB', 'GraphQL', 'TypeScript', 'Docker', 'AWS', 'Kubernetes', 'Firebase', 'Swift', 'Kotlin'],
+    workSamples: [
+      { type: 'image', url: 'https://source.unsplash.com/200x200?tech' },
+      { type: 'image', url: 'https://source.unsplash.com/200x200?coding' },
+      { type: 'video', url: 'https://www.example.com/sample-video.mp4' },
+      { type: 'pdf', url: 'https://www.example.com/sample-document.pdf' },
+    ],
+    reviews: [
+      {
+        reviewer: 'Alice',
+        rating: 5,
+        comment: 'Great work!',
+        date: '2023-01-15',
+      },
+      {
+        reviewer: 'Bob',
+        rating: 4,
+        comment: 'Very professional.',
+        date: '2023-01-10',
+      },
+    ],
+    availability: {
+      Monday: '9 AM - 6 PM',
+      Tuesday: '9 AM - 6 PM',
+      Wednesday: '9 AM - 6 PM',
+      Thursday: '9 AM - 6 PM',
+      Friday: '9 AM - 6 PM',
+      Saturday: '10 AM - 4 PM',
+      Sunday: 'Not Available',
+    },
+};

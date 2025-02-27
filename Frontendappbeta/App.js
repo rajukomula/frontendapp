@@ -66,8 +66,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Import only the HomePage component
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
+import AvatarSelectionPage from './pages/AvatarSelectionPage';
+import MediaUploadPage from './pages/MediaUploadPage';
+import UserProfile from './pages/UserProfilePage';
+import Profile from './pages/Profile';
+import Home from './pages/Home';
 
 const Stack = createStackNavigator();
 
@@ -75,10 +78,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LogIn">
-        <Stack.Screen 
-          name="LogIn" 
-          component={LoginPage} 
-          options={{ 
+        <Stack.Screen
+          name="LogIn"
+          component={Profile}
+          options={{
             headerShown: false, // Hide header for a full-screen experience
             gestureEnabled: false, // Disable swipe gestures for back navigation
           }} 

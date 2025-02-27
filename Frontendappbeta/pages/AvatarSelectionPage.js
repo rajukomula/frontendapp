@@ -4,7 +4,7 @@ import { Button, Text } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";  // Import delete icon
 import * as ImagePicker from "expo-image-picker";
 
-export default function AvatarSelection({ navigation }) {
+export default function AvatarSelectionPage({ navigation }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   // ✅ Updated Reliable Avatar URLs
