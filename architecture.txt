@@ -41,3 +41,14 @@ userData = {
       Sunday: 'Not Available',
     },
 };
+
+
+
+
+
+
+am developing this parttime jobs mobile platform using expo go react native js where daily and hourly jobs are prioritized, i want to you to add some more data and functionality to this page where for an example in my platform a plumber to senior software engineer can look for jobs that are hourly, daily and weekly chargable. 
+
+with this same theme create a jobs page where it shows all the available jobs in that area with per hour charge, posted time and other job details 
+
+

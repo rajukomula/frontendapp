@@ -71,16 +71,19 @@ import MediaUploadPage from './pages/MediaUploadPage';
 import UserProfile from './pages/UserProfilePage';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
+import JobsPage from './pages/JobsPage';
+import JobDetailsPage from './pages/JobDetailsPage';
+import JobApplicationPage from './pages/JobApplicationPage';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="LogIn">
+      <Stack.Navigator initialRouteName="jobspage">
         <Stack.Screen
           name="LogIn"
-          component={Profile}
+          component={JobApplicationPage}
           options={{
             headerShown: false, // Hide header for a full-screen experience
             gestureEnabled: false, // Disable swipe gestures for back navigation
