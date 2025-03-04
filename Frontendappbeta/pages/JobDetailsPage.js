@@ -7,9 +7,9 @@ import {
   ScrollView, 
   TouchableOpacity 
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function JobDetailsPage({ route, navigation }) {
+  // Sample job data for testing
   const sampleJob = {
     title: 'Editor',
     company: 'Media Solutions',
@@ -32,17 +32,18 @@ export default function JobDetailsPage({ route, navigation }) {
     paymentMethods: ['Bank Transfer', 'PayPal', 'Crypto'],
   };
 
+  // Use passed job or default sample data
   const job = route?.params?.job || sampleJob;
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="#333" />
+          <Text style={styles.backText}>⬅ Back</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Job Details</Text>
         <TouchableOpacity>
-          <Ionicons name="share-outline" size={24} color="#333" />
+          <Text style={styles.shareText}>🔗 Share</Text>
         </TouchableOpacity>
       </View>
 
@@ -56,18 +57,9 @@ export default function JobDetailsPage({ route, navigation }) {
         </View>
 
         <View style={styles.jobDetailsSection}>
-          <View style={styles.detailItem}>
-            <Ionicons name="location-outline" size={20} color="#1A73E8" />
-            <Text style={styles.detailText}>{job.location}</Text>
-          </View>
-          <View style={styles.detailItem}>
-            <Ionicons name="cash-outline" size={20} color="#1A73E8" />
-            <Text style={styles.detailText}>{job.rates.hourly} | {job.rates.daily} | {job.rates.weekly}</Text>
-          </View>
-          <View style={styles.detailItem}>
-            <Ionicons name="time-outline" size={20} color="#1A73E8" />
-            <Text style={styles.detailText}>{job.workSchedule}</Text>
-          </View>
+          <Text style={styles.detailText}>📍 {job.location}</Text>
+          <Text style={styles.detailText}>💰 {job.rates.hourly} | {job.rates.daily} | {job.rates.weekly}</Text>
+          <Text style={styles.detailText}>⏳ {job.workSchedule}</Text>
         </View>
 
         <View style={styles.sectionContainer}>
@@ -118,6 +110,8 @@ export default function JobDetailsPage({ route, navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F8F9FA' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingTop: 60, paddingBottom: 20, backgroundColor: '#fff' },
+  backText: { fontSize: 16, color: '#007AFF' },
+  shareText: { fontSize: 16, color: '#007AFF' },
   headerTitle: { fontSize: 18, fontWeight: '600', color: '#333' },
   content: { flex: 1 },
   jobHeader: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 20, backgroundColor: '#fff' },
@@ -126,8 +120,7 @@ const styles = StyleSheet.create({
   jobTitle: { fontSize: 18, fontWeight: '600', color: '#333', marginBottom: 4 },
   companyName: { fontSize: 14, color: '#555' },
   jobDetailsSection: { backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 15, marginTop: 10 },
-  detailItem: { flexDirection: 'row', alignItems: 'center', marginBottom: 8 },
-  detailText: { marginLeft: 8, fontSize: 14, color: '#333' },
+  detailText: { fontSize: 14, color: '#333', marginBottom: 8 },
   sectionContainer: { backgroundColor: '#fff', marginTop: 10, paddingHorizontal: 20, paddingVertical: 15 },
   sectionTitle: { fontSize: 16, fontWeight: '600', color: '#333', marginBottom: 10 },
   descriptionText: { fontSize: 14, color: '#555', lineHeight: 22 },

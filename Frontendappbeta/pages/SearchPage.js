@@ -28,10 +28,7 @@ export default function SearchPage({ navigation }) {
   const renderRecentSearch = ({ item }) => (
     <TouchableOpacity 
       style={styles.recentSearchItem}
-      onPress={() => {
-        setSearchQuery(item);
-        // Perform search
-      }}
+      onPress={() => setSearchQuery(item)}
     >
       <Ionicons name="time-outline" size={20} color="#777" />
       <Text style={styles.recentSearchText}>{item}</Text>
@@ -39,12 +36,7 @@ export default function SearchPage({ navigation }) {
   );
 
   const renderCategory = ({ item }) => (
-    <TouchableOpacity 
-      style={styles.categoryItem}
-      onPress={() => {
-        // Navigate to jobs in this category
-      }}
-    >
+    <TouchableOpacity style={styles.categoryItem}>
       <View style={styles.categoryIconContainer}>
         <Ionicons name={item.icon} size={22} color="#fff" />
       </View>
@@ -65,9 +57,6 @@ export default function SearchPage({ navigation }) {
             placeholder="Search for jobs..."
             value={searchQuery}
             onChangeText={setSearchQuery}
-            onSubmitEditing={() => {
-              // Perform search
-            }}
           />
           {searchQuery ? (
             <TouchableOpacity onPress={() => setSearchQuery('')}>
@@ -99,12 +88,7 @@ export default function SearchPage({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity 
-        style={styles.filterButton}
-        onPress={() => {
-          // Open advanced filters
-        }}
-      >
+      <TouchableOpacity style={styles.filterButton}>
         <Ionicons name="options-outline" size={20} color="#fff" />
         <Text style={styles.filterButtonText}>Advanced Filters</Text>
       </TouchableOpacity>
@@ -113,91 +97,17 @@ export default function SearchPage({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F9FA',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 20,
-    backgroundColor: '#fff',
-  },
-  searchBarContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F0F0F0',
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    marginLeft: 15,
-    height: 46,
-  },
-  searchInput: {
-    flex: 1,
-    marginLeft: 10,
-    fontSize: 16,
-  },
-  sectionContainer: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 15,
-  },
-  recentSearchItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginRight: 10,
-  },
-  recentSearchText: {
-    marginLeft: 10,
-    fontSize: 14,
-    color: '#333',
-  },
-  categoryItem: {
-    alignItems: 'center',
-    marginRight: 16,
-    width: 80,
-  },
-  categoryIconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#1A73E8',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  categoryName: {
-    fontSize: 12,
-    color: '#333',
-    textAlign: 'center',
-  },
-  filterButton: {
-    flexDirection: 'row',
-    backgroundColor: '#1A73E8',
-    borderRadius: 10,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    marginHorizontal: 20,
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  filterButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 10,
-  },
+  container: { flex: 1, backgroundColor: '#F8F9FA' },
+  header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingTop: 60, paddingBottom: 20, backgroundColor: '#fff' },
+  searchBarContainer: { flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: '#F0F0F0', borderRadius: 10, paddingHorizontal: 15, marginLeft: 15, height: 46 },
+  searchInput: { flex: 1, marginLeft: 10, fontSize: 16 },
+  sectionContainer: { marginTop: 20, paddingHorizontal: 20 },
+  sectionTitle: { fontSize: 18, fontWeight: '600', color: '#333', marginBottom: 15 },
+  recentSearchItem: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 8, marginRight: 10 },
+  recentSearchText: { marginLeft: 10, fontSize: 14, color: '#333' },
+  categoryItem: { alignItems: 'center', marginRight: 16, width: 80 },
+  categoryIconContainer: { width: 60, height: 60, borderRadius: 30, backgroundColor: '#1A73E8', justifyContent: 'center', alignItems: 'center', marginBottom: 8 },
+  categoryName: { fontSize: 12, color: '#333', textAlign: 'center' },
+  filterButton: { flexDirection: 'row', backgroundColor: '#1A73E8', borderRadius: 10, paddingVertical: 15, paddingHorizontal: 20, marginHorizontal: 20, marginTop: 20, alignItems: 'center', justifyContent: 'center' },
+  filterButtonText: { color: '#fff', fontSize: 16, fontWeight: '600', marginLeft: 10 },
 });

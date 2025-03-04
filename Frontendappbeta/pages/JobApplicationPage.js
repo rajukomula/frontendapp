@@ -8,10 +8,19 @@ import {
   ScrollView,
   Switch
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function JobApplicationPage({ route, navigation }) {
-  const { job } = route.params;
+  // Sample job data for testing
+  const defaultJob = {
+    title: "Electrician",
+    company: "Local Services Pvt Ltd",
+    location: "Hyderabad, Ameerpet",
+    rate: "₹500 per hour"
+  };
+
+  // Use passed job or default sample data
+  const job = route.params?.job || defaultJob;
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -19,12 +28,9 @@ export default function JobApplicationPage({ route, navigation }) {
   const [isAvailableFullTime, setIsAvailableFullTime] = useState(false);
 
   const handleSubmitApplication = () => {
-    // Validation and submission logic
     if (fullName && email && phone) {
-      // Show success modal or navigate
       navigation.navigate('ApplicationSuccess', { job });
     } else {
-      // Show error
       alert('Please fill in all required fields');
     }
   };
@@ -33,33 +39,22 @@ export default function JobApplicationPage({ route, navigation }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="#333" />
+          <Text style={styles.backText}>⬅ Back</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Apply for {job.title}</Text>
       </View>
 
-      <ScrollView 
-        style={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.jobPreview}>
           <Text style={styles.jobTitle}>{job.title}</Text>
           <Text style={styles.companyName}>{job.company}</Text>
-          <View style={styles.jobDetailsRow}>
-            <View style={styles.jobDetailItem}>
-              <Ionicons name="location-outline" size={16} color="#1A73E8" />
-              <Text style={styles.jobDetailText}>{job.location}</Text>
-            </View>
-            <View style={styles.jobDetailItem}>
-              <Ionicons name="cash-outline" size={16} color="#1A73E8" />
-              <Text style={styles.jobDetailText}>{job.rate}</Text>
-            </View>
-          </View>
+          <Text style={styles.jobDetail}>📍 {job.location}</Text>
+          <Text style={styles.jobDetail}>💰 {job.rate}</Text>
         </View>
 
         <View style={styles.formContainer}>
           <Text style={styles.formTitle}>Application Details</Text>
-          
+
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Full Name</Text>
             <TextInput
@@ -140,6 +135,10 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     backgroundColor: '#fff',
   },
+  backText: {
+    fontSize: 16,
+    color: '#007AFF',
+  },
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
@@ -153,6 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
     paddingVertical: 15,
+    marginBottom: 10,
   },
   jobTitle: {
     fontSize: 18,
@@ -165,22 +165,13 @@ const styles = StyleSheet.create({
     color: '#555',
     marginBottom: 10,
   },
-  jobDetailsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  jobDetailItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  jobDetailText: {
-    marginLeft: 5,
-    fontSize: 12,
+  jobDetail: {
+    fontSize: 14,
     color: '#1A73E8',
+    marginBottom: 5,
   },
   formContainer: {
     backgroundColor: '#fff',
-    marginTop: 10,
     paddingHorizontal: 20,
     paddingVertical: 15,
   },
@@ -233,3 +224,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+

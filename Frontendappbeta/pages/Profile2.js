@@ -9,55 +9,64 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Profile2({ navigation }) {
+export default function DailyWageProfile({ navigation }) {
   const [profile] = useState({
-    name: 'Michael Chen',
-    email: 'michael.chen@example.com',
-    location: 'San Francisco, CA',
-    skills: ['React Native', 'Video Editing', 'UI/UX Design', 'Motion Graphics'],
+    name: 'Rahul Sharma',
+    jobType: 'Plumber',
+    email: 'rahul.sharma@example.com',
+    phone: '+91 9876543210',
+    location: 'Mumbai, India',
+    availability: 'Available for daily & weekly work',
+    rates: {
+      hourly: '₹250/hr',
+      daily: '₹1800/day',
+      weekly: '₹10000/week',
+    },
+    skills: ['Pipe Fitting', 'Leak Repair', 'Water Heater Installation', 'Drain Cleaning'],
     experience: [
       {
         id: '1',
-        title: 'Freelance Developer',
+        title: 'Freelance Plumber',
         company: 'Self-Employed',
-        duration: 'Jan 2023 - Present',
+        duration: 'Feb 2021 - Present',
       },
       {
         id: '2',
-        title: 'Motion Graphics Designer',
-        company: 'CreativeStudio',
-        duration: 'Jun 2022 - Dec 2022',
+        title: 'Plumbing Technician',
+        company: 'QuickFix Services',
+        duration: 'Jan 2019 - Jan 2021',
       }
     ],
-    education: [
+    pastJobs: [
       {
         id: '1',
-        degree: 'Bachelor of Design',
-        institution: 'Art Institute of California',
-        year: '2021',
+        client: 'Mr. Rajesh Gupta',
+        job: 'Bathroom Pipe Fixing',
+        rating: '⭐⭐⭐⭐⭐',
+      },
+      {
+        id: '2',
+        client: 'Mrs. Priya Verma',
+        job: 'Kitchen Sink Installation',
+        rating: '⭐⭐⭐⭐',
       }
     ],
-    image: { uri: 'https://randomuser.me/api/portraits/men/1.jpg' }
+    reviews: [
+      {
+        id: '1',
+        reviewer: 'Rajesh Gupta',
+        comment: 'Very professional and skilled plumber! Highly recommend.',
+        rating: '⭐⭐⭐⭐⭐'
+      },
+      {
+        id: '2',
+        reviewer: 'Priya Verma',
+        comment: 'Fixed my kitchen sink perfectly. Will hire again!',
+        rating: '⭐⭐⭐⭐'
+      }
+    ],
+    image: { uri: 'https://randomuser.me/api/portraits/men/2.jpg' }
   });
-
-  const StatItem = ({ icon, label, value }) => (
-    <View style={styles.statItem}>
-      <Ionicons name={icon} size={24} color="#1A73E8" />
-      <Text style={styles.statLabel}>{label}</Text>
-      <Text style={styles.statValue}>{value}</Text>
-    </View>
-  );
-
-  const SectionHeader = ({ title, onSeeAll }) => (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      {onSeeAll && (
-        <TouchableOpacity onPress={onSeeAll}>
-          <Text style={styles.seeAllText}>See all</Text>
-        </TouchableOpacity>
-      )}
-    </View>
-  );
 
   return (
     <View style={styles.container}>
@@ -65,37 +74,36 @@ export default function Profile2({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color="#333" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Profile</Text>
+        <Text style={styles.headerTitle}>Worker Profile</Text>
         <TouchableOpacity>
           <Ionicons name="create-outline" size={24} color="#333" />
         </TouchableOpacity>
       </View>
-
-      <ScrollView 
-        style={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
+      
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.profileHeader}>
-          <Image 
-            source={profile.image} 
-            style={styles.profileImage} 
-          />
+          <Image source={profile.image} style={styles.profileImage} />
           <Text style={styles.profileName}>{profile.name}</Text>
+          <Text style={styles.profileJob}>{profile.jobType}</Text>
           <Text style={styles.profileEmail}>{profile.email}</Text>
-          <View style={styles.locationContainer}>
-            <Ionicons name="location-outline" size={16} color="#777" />
-            <Text style={styles.locationText}>{profile.location}</Text>
-          </View>
-        </View>
-
-        <View style={styles.statsContainer}>
-          <StatItem icon="briefcase-outline" label="Jobs" value="12" />
-          <StatItem icon="people-outline" label="Connections" value="42" />
-          <StatItem icon="trophy-outline" label="Completed" value="8" />
+          <Text style={styles.profilePhone}>{profile.phone}</Text>
+          <Text style={styles.profileLocation}>{profile.location}</Text>
         </View>
 
         <View style={styles.sectionContainer}>
-          <SectionHeader title="Skills" />
+          <Text style={styles.sectionTitle}>Availability</Text>
+          <Text style={styles.text}>{profile.availability}</Text>
+        </View>
+
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Rates</Text>
+          <Text style={styles.text}>Hourly: {profile.rates.hourly}</Text>
+          <Text style={styles.text}>Daily: {profile.rates.daily}</Text>
+          <Text style={styles.text}>Weekly: {profile.rates.weekly}</Text>
+        </View>
+
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Skills</Text>
           <View style={styles.skillsContainer}>
             {profile.skills.map((skill, index) => (
               <View key={index} style={styles.skillBadge}>
@@ -106,10 +114,7 @@ export default function Profile2({ navigation }) {
         </View>
 
         <View style={styles.sectionContainer}>
-          <SectionHeader 
-            title="Experience" 
-            onSeeAll={() => {/* Navigate to full experience */}}
-          />
+          <Text style={styles.sectionTitle}>Experience</Text>
           {profile.experience.map(exp => (
             <View key={exp.id} style={styles.experienceItem}>
               <Text style={styles.experienceTitle}>{exp.title}</Text>
@@ -120,21 +125,29 @@ export default function Profile2({ navigation }) {
         </View>
 
         <View style={styles.sectionContainer}>
-          <SectionHeader 
-            title="Education" 
-            onSeeAll={() => {/* Navigate to full education */}}
-          />
-          {profile.education.map(edu => (
-            <View key={edu.id} style={styles.educationItem}>
-              <Text style={styles.educationDegree}>{edu.degree}</Text>
-              <Text style={styles.educationInstitution}>{edu.institution}</Text>
-              <Text style={styles.educationYear}>{edu.year}</Text>
+          <Text style={styles.sectionTitle}>Past Jobs</Text>
+          {profile.pastJobs.map(job => (
+            <View key={job.id} style={styles.pastJobItem}>
+              <Text style={styles.clientName}>{job.client}</Text>
+              <Text style={styles.jobTitle}>{job.job}</Text>
+              <Text style={styles.rating}>{job.rating}</Text>
             </View>
           ))}
         </View>
 
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionButtonText}>Download Resume</Text>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Reviews</Text>
+          {profile.reviews.map(review => (
+            <View key={review.id} style={styles.reviewItem}>
+              <Text style={styles.reviewer}>{review.reviewer}</Text>
+              <Text style={styles.comment}>{review.comment}</Text>
+              <Text style={styles.rating}>{review.rating}</Text>
+            </View>
+          ))}
+        </View>
+
+        <TouchableOpacity style={styles.downloadButton}>
+          <Text style={styles.downloadText}>Download Resume</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -142,167 +155,16 @@ export default function Profile2({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F9FA',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 20,
-    backgroundColor: '#fff',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-  },
-  content: {
-    flex: 1,
-  },
-  profileHeader: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    paddingVertical: 20,
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 15,
-  },
-  profileName: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 5,
-  },
-  profileEmail: {
-    fontSize: 14,
-    color: '#777',
-    marginBottom: 5,
-  },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  locationText: {
-    fontSize: 14,
-    color: '#777',
-    marginLeft: 5,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#fff',
-    paddingVertical: 15,
-    marginTop: 10,
-  },
-  statItem: {
-    alignItems: 'center',
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#777',
-    marginTop: 5,
-  },
-  statValue: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginTop: 3,
-  },
-  sectionContainer: {
-    backgroundColor: '#fff',
-    marginTop: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  seeAllText: {
-    fontSize: 14,
-    color: '#1A73E8',
-  },
-  skillsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  skillBadge: {
-    backgroundColor: '#F0F0F0',
-    borderRadius: 12,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    marginRight: 5,
-    marginBottom: 5,
-  },
-  skillText: {
-    fontSize: 12,
-    color: '#555',
-  },
-  experienceItem: {
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
-    paddingBottom: 15,
-  },
-  experienceTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  experienceCompany: {
-    fontSize: 14,
-    color: '#555',
-    marginTop: 5,
-  },
-  experienceDuration: {
-    fontSize: 12,
-    color: '#777',
-    marginTop: 5,
-  },
-  educationItem: {
-    marginBottom: 15,
-  },
-  educationDegree: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  educationInstitution: {
-    fontSize: 14,
-    color: '#555',
-    marginTop: 5,
-  },
-  educationYear: {
-    fontSize: 12,
-    color: '#777',
-    marginTop: 5,
-  },
-  actionButton: {
-    backgroundColor: '#1A73E8',
-    borderRadius: 10,
-    paddingVertical: 15,
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 40,
-    alignItems: 'center',
-  },
-  actionButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
+  container: { flex: 1, backgroundColor: '#F8F9FA' },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, backgroundColor: '#fff' },
+  headerTitle: { fontSize: 18, fontWeight: '600', color: '#333' },
+  profileHeader: { alignItems: 'center', backgroundColor: '#fff', padding: 20 },
+  profileImage: { width: 100, height: 100, borderRadius: 50, marginBottom: 15 },
+  profileName: { fontSize: 20, fontWeight: '600', color: '#333' },
+  profileJob: { fontSize: 16, color: '#777' },
+  sectionContainer: { backgroundColor: '#fff', margin: 10, padding: 15 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', color: '#333', marginBottom: 10 },
+  text: { fontSize: 14, color: '#555' },
+  downloadButton: { backgroundColor: '#1A73E8', padding: 15, margin: 20, borderRadius: 10, alignItems: 'center' },
+  downloadText: { color: '#fff', fontSize: 16, fontWeight: '600' },
 });
